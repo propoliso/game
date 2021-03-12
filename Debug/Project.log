@@ -1,0 +1,11 @@
+﻿  main.cpp
+c:\users\1\desktop\game\project\main.cpp(45): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\users\1\desktop\game\project\main.cpp(51): warning C4244: =: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+c:\users\1\desktop\game\project\main.cpp(57): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+c:\users\1\desktop\game\project\main.cpp(123): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+c:\users\1\desktop\game\project\main.cpp(176): warning C4305: =: усечение из "double" в "float"
+  Project.vcxproj -> C:\Users\1\Desktop\game\Project\Debug\Project.exe
