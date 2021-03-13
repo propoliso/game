@@ -3,9 +3,34 @@
 using namespace sf;
 
 
+int ground = 295;
 
 
-int ground = 700;
+const int H = 12;
+const int W = 40;
+
+
+String TileMap[H] = {
+
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+"B                                B     B",
+"B                                B     B",
+"B                                B     B",
+"B                                B     B",
+"B         0000                   B   BBB",
+"B                               BB     B",
+"BBB                              B     B",
+"B              BB                BB    B",
+"B              BB       BBBB           B",
+"B    B         BB         BB           B",
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+
+};
+
+
+
+
+
 class Player
 {
 public:
@@ -14,22 +39,20 @@ public:
     bool onGround;
     Sprite sprite;
     float currentFrame;
-
     Player(Texture& image);
-
     ~Player();
-
     void update(float time);
-private:
+
+    void Collision(int temp);
 
 };
 
 Player::Player(Texture& image)
 {
     sprite.setTexture(image);
-    rect = FloatRect(0,0,183,176);
-    sprite.setTextureRect(IntRect(0,0,183,162));
-    dx = dy = 0;
+    rect = FloatRect(7 * 32, 9 * 32, 50, 50);
+    sprite.setTextureRect(IntRect(10,10,50,50)); // начальная отрисовка
+    dx = dy = 0.1;
     currentFrame = 0;
 
 }
@@ -40,21 +63,22 @@ Player::~Player()
 
 void Player::update(float time) // гравитация 
 {
-    rect.left += dx * time;
+    rect.left += dx * time;//движение dx
+    if (!onGround) dy = dy + 0.0005*time;
+    Collision(0);
 
-    if (!onGround) dy = dy + 0.0015*time;
-    
         rect.top += dy * time;
         onGround = false;
+        Collision(1);
 
-        if (rect.top > ground) {    
+       /* if (rect.top > ground) {    
             rect.top = ground;
             dy = 0;
             onGround = true;
-        }
+        }*/
         
 
-            currentFrame += 0.015 * time;
+            currentFrame += 0.005 * time;
             if (currentFrame > 2) currentFrame -= 2;
 
 
@@ -68,19 +92,36 @@ void Player::update(float time) // гравитация
 
 
 
-          if (dx > 0)  sprite.setTextureRect(IntRect(182 * int(currentFrame), 0, 182, 167)); // сдвиг картинки на 182 - анимация
-    
-           if (dx < 0)  sprite.setTextureRect(IntRect(182 * int(currentFrame)+182, 0, -182, 167)); // сдвиг картинки на 182 - анимация
-
-         
-            
-      
-        
-
+            if (dx > 0) sprite.setTextureRect(IntRect(70 * int(currentFrame), 0, 70, 70)); // замена картинки пр движении
+            if (dx < 0) sprite.setTextureRect(IntRect(70 * int(currentFrame) + 70, 0, -70, 70));
         sprite.setPosition(rect.left, rect.top);
         dx = 0;
-    
+   
+}
 
+
+void Player::Collision(int temp) {
+
+    {
+        for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++)
+            for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++)
+            {
+                if (TileMap[i][j] == 'B')
+                {
+                    if ((dx > 0) && (temp == 0)) rect.left = j * 32 - rect.width;
+                    if ((dx < 0) && (temp == 0)) rect.left = j * 32 + 32;
+                    if ((dy > 0) && (temp == 1)) { rect.top = i * 32 - rect.height;  dy = 0;   onGround = true; }
+                    if ((dy < 0) && (temp == 1)) { rect.top = i * 32 + 32;   dy = 0; }
+                }
+                    
+                if (TileMap[i][j] == '0')
+                {
+                    TileMap[i][j] = ' ';
+                }
+
+            }
+
+    }
 }
 
 
@@ -91,21 +132,15 @@ void Player::update(float time) // гравитация
 
 int main()
 {
-    RenderWindow window(sf::VideoMode(1000, 1000), "casper game"); // создание окна 
+    RenderWindow window(sf::VideoMode(1280, 400), "casper game"); // создание окна 
     CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Red);
 
 
-
     Texture t; 
-
     t.loadFromFile("myhero.png"); // загрузка картинки
     //t.setTextureRect(IntRect(0,0, 183, 167));
     float currentFrame = 0; // скорость анимации
-
-
-
-    Player p(t);
 
 
     //Sprite s; 
@@ -114,8 +149,10 @@ int main()
     //s.setPosition(50, 100);
 
 
-
+    Player p(t);
     Clock clock;
+    RectangleShape rectangle(Vector2f(32, 32));
+
 
     while (window.isOpen())
     {
@@ -123,7 +160,7 @@ int main()
         float time = clock.getElapsedTime().asMicroseconds(); // запись времени для гладкой отрисовки картинки
         clock.restart();
 
-        time = time / 1500;
+        time = time / 700;
 
 
 
@@ -139,10 +176,7 @@ int main()
         if (Keyboard:: isKeyPressed(Keyboard::Left)) 
         {
 
-
-           p.dx = -0.5;
-
-
+           p.dx = -0.1;
 
             //s.move(-0.5 * time, 0);
             //currentFrame += 0.015 * time; 
@@ -152,12 +186,10 @@ int main()
             //}
         }
 
+
         if (Keyboard::isKeyPressed(Keyboard::Right))
         {
-
-
-            p.dx = 0.5;
-
+            p.dx = 0.1;
 
             //s.move(0.5 * time, 0);
             //currentFrame += 0.015 * time;
@@ -167,13 +199,13 @@ int main()
             //}
         }
 
+
          if (Keyboard::isKeyPressed(Keyboard::Up))
         {
 
-
              if (p.onGround)
              {
-                 p.dy = -0.90;
+                 p.dy = -0.35;
                  p.onGround = false;
                  //fs
              }
@@ -191,10 +223,27 @@ int main()
          p.update(time);
 
 
-        window.clear(Color::White);
+        window.clear(Color::Magenta);
 
 
-    //  window.draw(s); // рисование sprite
+
+
+        for (int i = 0; i < H; i++) {
+            for (int j = 0; j < W; j++)
+            {
+                if (TileMap[i][j] == 'B') rectangle.setFillColor(Color::Black);
+
+                if (TileMap[i][j] == '0')  rectangle.setFillColor(Color::Green);
+
+                if (TileMap[i][j] == ' ') continue;
+
+                rectangle.setPosition(j * 32 , i * 32 );
+                window.draw(rectangle);
+
+            }
+        }
+
+         //window.draw(s); // рисование sprite
 
         window.draw(p.sprite); // рисование sprite
         window.display();
