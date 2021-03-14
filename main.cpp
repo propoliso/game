@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
+#include "./Header.h"
 
 
 using namespace sf;
@@ -24,12 +26,12 @@ String TileMap[H] = {
 "0                                                                                                                                                   0",
 "0                                 g                                           222                     22       2     2     2222222                  0",
 "0                                                                            2   2     2      2      2  2      2     2    2      2                  0",
-"0                                                   O                 0      2       22222  22222   2    2     2     2    2 222222       d          0",
+"0                                                                     0      2       22222  22222   2    2     2     2    2 222222       d          0",
 "0                                                                    00      2         2      2    22222222    2222222     2     2                  0",
 "0                                                                   0000     2   2                2        2   2     2    2      2                  0",
 "0                                                                  000000     222                2          2  2     2   2       2                  0",
 "0                                                                 00000000                                                                          0",
-"0             F                  F                               0000000000                                                                         0",
+"0             F                  F                               0000000000               O                                                         0",
 "0                                                             00000000000000                                                                        0",
 "0                                                           000000000000000000000                                                                   0",
 "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -242,9 +244,34 @@ void Enemy :: Collision()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int main()
 {
     RenderWindow window(sf::VideoMode(1000, 800), "scribble game"); // создание окна 
+    menu(window);
     CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Red);
 
@@ -260,6 +287,19 @@ int main()
     t.loadFromFile("casper.png"); // загрузка картинки
    // t.setTextureRect(IntRect(0,0, 183, 167));
     float currentFrame = 0; // скорость анимации
+
+
+
+ 
+
+
+    Music music;//создаем объект музыки
+    music.openFromFile("music.ogg");//загружаем файл
+    music.play();//воспроизводим музыку
+
+
+
+
 
 
     //Sprite s; 
@@ -385,8 +425,11 @@ int main()
                      p.dy = -0.2;
                      monsters.life = false; 
                  }
-                 else p.sprite.setColor(Color::Red);
-             }
+                 /*else {
+                     p.sprite.setTextureRect(IntRect()); // при столконовении с монстром сделать смерть героя
+
+                 }*/
+             }   
          }
 
 
@@ -439,7 +482,14 @@ int main()
 
 
 
+    
+      
+
          //window.draw(s); // рисование sprite
+
+
+
+
 
         window.draw(p.sprite); // рисование sprite
         window.draw(monsters.sprite);
