@@ -22,16 +22,16 @@ String TileMap[H] = {
 "0                                                                                                                                                   0",
 "0       s                                                                                                                                           0",
 "0                                                                                                                                                   0",
-"0                                                                                                                                                   0",
-"0                                                                                                                                                   0",
-"0                                 g                                           222                     22       2     2     2222222                  0",
-"0                                                                            2   2     2      2      2  2      2     2    2      2                  0",
+"0F                                                                                                                                                  0",
+"000                                                                                                                                                 0",
+"0                  0              g 0                                         222                     22       2     2     2222222                  0",
+"0                                                    0000                    2   2     2      2      2  2      2     2    2      2                  0",
 "0                                                                     0      2       22222  22222   2    2     2     2    2 222222       d          0",
 "0                                                                    00      2         2      2    22222222    2222222     2     2                  0",
 "0                                                                   0000     2   2                2        2   2     2    2      2                  0",
 "0                                                                  000000     222                2          2  2     2   2       2                  0",
 "0                                                                 00000000                                                                          0",
-"0             F                  F                               0000000000               O                                                         0",
+"0                                                                0000000000               O                                                         0",
 "0                                                             00000000000000                                                                        0",
 "0                                                           000000000000000000000                                                                   0",
 "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -244,12 +244,18 @@ void Enemy :: Collision()
 
 
 
-
-
-
-
-
-
+void fight(Player& player, Enemy& monster) {
+    if (player.rect.intersects(monster.rect))
+    {
+        if (monster.life) {
+            if (player.dy > 0) {
+                monster.dx = 0;
+                player.dy = -0.2;
+                monster.life = false;
+            }
+        }
+    }
+}
 
 
 
@@ -309,6 +315,11 @@ int main()
 
     Enemy monsters;
     monsters.set(tileSet2, 30 * 32, 15 * 32);
+    Enemy monsters2;
+    monsters2.set(tileSet2, 32 * 32, 12 * 32);
+
+
+
     Player p(t);
     Clock clock;
    // RectangleShape rectangle(Vector2f(32, 32));
@@ -417,23 +428,10 @@ int main()
 
          p.update(time);
          monsters.update(time);
-         if (p.rect.intersects(monsters.rect))
-         {
-             if (monsters.life) {
-                 if (p.dy > 0) {
-                     monsters.dx = 0; 
-                     p.dy = -0.2;
-                     monsters.life = false; 
-                 }
-                 /*else {
-                     p.sprite.setTextureRect(IntRect()); // при столконовении с монстром сделать смерть героя
-
-                 }*/
-             }   
-         }
+         monsters2.update(time);
 
 
-         offsetX =p. rect.left - 1000/2; // привязка камеры 
+         offsetX = p.rect.left - 1000/2; // привязка камеры 
          offsetY = p.rect.top- 800 /2;
 
 
@@ -482,8 +480,9 @@ int main()
 
 
 
-    
+        fight(p,monsters);
       
+        fight(p, monsters2);
 
          //window.draw(s); // рисование sprite
 
@@ -492,7 +491,10 @@ int main()
 
 
         window.draw(p.sprite); // рисование sprite
-        window.draw(monsters.sprite);
+        window.draw(monsters.sprite);      
+        window.draw(monsters2.sprite);
+
+
 
         window.display();
     }

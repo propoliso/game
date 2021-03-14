@@ -44,9 +44,9 @@ c:\users\1\desktop\game\project\main.cpp(238): warning C4244: =: преобра�
           [
               T=float
           ]
-c:\users\1\desktop\game\project\main.cpp(326): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
-c:\users\1\desktop\game\project\main.cpp(345): warning C4305: =: усечение из "double" в "float"
-c:\users\1\desktop\game\project\main.cpp(365): warning C4305: =: усечение из "double" в "float"
-c:\users\1\desktop\game\project\main.cpp(392): warning C4305: =: усечение из "double" в "float"
-c:\users\1\desktop\game\project\main.cpp(425): warning C4305: =: усечение из "double" в "float"
+c:\users\1\desktop\game\project\main.cpp(253): warning C4305: =: усечение из "double" в "float"
+c:\users\1\desktop\game\project\main.cpp(337): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+c:\users\1\desktop\game\project\main.cpp(356): warning C4305: =: усечение из "double" в "float"
+c:\users\1\desktop\game\project\main.cpp(376): warning C4305: =: усечение из "double" в "float"
+c:\users\1\desktop\game\project\main.cpp(403): warning C4305: =: усечение из "double" в "float"
   Project.vcxproj -> C:\Users\1\Desktop\game\Project\Debug\Project.exe
