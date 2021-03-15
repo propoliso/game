@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-
+#include<iostream>
 #include "./Header.h"
+#include <sstream>
 
 
 using namespace sf;
@@ -12,7 +13,6 @@ float offsetX = 0, offsetY = 0;
 
 const int H = 18;
 const int W = 150;
-
 
 String TileMap[H] = {
 
@@ -31,7 +31,7 @@ String TileMap[H] = {
 "0                                                                   0000     2   2                2        2   2     2    2      2                  0",
 "0                                                                  000000     222                2          2  2     2   2       2                  0",
 "0                                                                 00000000                                                                          0",
-"0                                                                0000000000               O                                                         0",
+"0                       FF                                       0000000000               O                                                         0",
 "0                                                             00000000000000                                                                        0",
 "0                                                           000000000000000000000                                                                   0",
 "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -44,12 +44,14 @@ String TileMap[H] = {
 
 
 
+
 class Player
 {
 public:
     float dx, dy; // скорость 
     FloatRect rect;
     bool onGround;
+    bool life;
     Sprite sprite;
     float currentFrame;
     Player(Texture& image);
@@ -57,6 +59,11 @@ public:
     void update(float time);
 
     void Collision(int temp);
+
+    
+   // friend void count();
+
+
 
 };
 
@@ -105,7 +112,7 @@ void Player::update(float time) // гравитация
             sprite.setTextureRect(IntRect(x1, y1, x2, y2));*/
 
 
-
+            if (!life)sprite.setTextureRect(IntRect(174, 0, 85, 70));
             if (dx > 0) sprite.setTextureRect(IntRect(85 * int(currentFrame), 0, 85, 70)); // замена картинки пр движении
             if (dx < 0) sprite.setTextureRect(IntRect(85 * int(currentFrame) + 85, 0, -85, 70));
         sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
@@ -139,12 +146,13 @@ void Player::Collision(int temp) {
                 {
                     TileMap[i][j] = ' ';
                 }
+        
+
 
             }
 
     }
 }
-
 
 
 
@@ -213,8 +221,6 @@ void Enemy::update(float time)
     if (currentFrame > 2) currentFrame -= 2;
     sprite.setTextureRect(IntRect(80 * int(currentFrame), 0, 80, 70)); // замена картинки пр движении
     if (!life) sprite.setTextureRect(IntRect(165, 0, 80, 70));
-
-
     sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
 
 
@@ -244,20 +250,46 @@ void Enemy :: Collision()
 
 
 
+
+
 void fight(Player& player, Enemy& monster) {
-    if (player.rect.intersects(monster.rect))
+    if (player.life)
     {
-        if (monster.life) {
-            if (player.dy > 0) {
-                monster.dx = 0;
-                player.dy = -0.2;
-                monster.life = false;
+        if (player.rect.intersects(monster.rect))
+        {
+            if (monster.life) {
+                if (player.dy > 0) {
+                    monster.dx = 0;
+                    player.dy = -0.2;
+                    monster.life = false;
+                }
+                else
+                {
+                    player.life = false;
+
+                }
             }
         }
     }
 }
 
 
+//void count() {
+//    int count = 0;
+//    for (int i = 0; i < H; i++)
+//    {
+//        for (int j = 0; j < W; j++)
+//        {
+//
+//            if (TileMap[i][j] == 'F')
+//            {
+//               count++;
+//            }
+//        }
+//    }
+//
+//
+//}
 
 
 
@@ -280,7 +312,7 @@ int main()
     menu(window);
     CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Red);
-
+    
 
     Texture tileSet;
     tileSet.loadFromFile("v1.png");
@@ -294,8 +326,17 @@ int main()
    // t.setTextureRect(IntRect(0,0, 183, 167));
     float currentFrame = 0; // скорость анимации
 
+    //Font font;
+    //font.loadFromFile("hp.png");
+    //Text mytext("Hello!", font, 50);
 
-
+    //mytext.setPosition(55, 50);
+    //std::ostringstream ss;    // #include <sstream>
+    //ss << count;
+    //mytext.setString(ss.str());
+    //window.draw(mytext);
+    //count();
+   
  
 
 
@@ -348,76 +389,79 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
-
-        if (Keyboard:: isKeyPressed(Keyboard::Left)) 
+        if (p.life)
         {
 
-           p.dx = -0.1;
-
-           if (Keyboard::isKeyPressed(Keyboard::RShift))
-           {
-               p.dx = -0.5;
 
 
-           }
-
-            //s.move(-0.5 * time, 0);
-            //currentFrame += 0.015 * time; 
-            //if (currentFrame > 2)currentFrame -= 2;
-            //{
-            //    s.setTextureRect(IntRect(182 * int(currentFrame)+182, 0, -182, 167)); // отзеркаливание картинки для левого перемещения
-            //}
-        }
-
-
-        if (Keyboard::isKeyPressed(Keyboard::Right))
-        {
-            p.dx = 0.1;
-            if (Keyboard::isKeyPressed(Keyboard::LShift))
+            if (Keyboard::isKeyPressed(Keyboard::A))
             {
-                p.dx = 0.5;
+
+                p.dx = -0.1;
+
+                if (Keyboard::isKeyPressed(Keyboard::RShift))
+                {
+                    p.dx = -0.5;
 
 
+                }
+
+                //s.move(-0.5 * time, 0);
+                //currentFrame += 0.015 * time; 
+                //if (currentFrame > 2)currentFrame -= 2;
+                //{
+                //    s.setTextureRect(IntRect(182 * int(currentFrame)+182, 0, -182, 167)); // отзеркаливание картинки для левого перемещения
+                //}
             }
 
-            //s.move(0.5 * time, 0);
-            //currentFrame += 0.015 * time;
-            //if (currentFrame > 2)currentFrame -= 2;
-            //{
-            //    s.setTextureRect(IntRect(182*int(currentFrame), 0, 182, 167)); // сдвиг картинки на 182 - анимация
-            //}
-        }
-       
-      
 
-
-        
-
-
-        if (Keyboard::isKeyPressed(Keyboard::Space))
-        {
-
-            if (p.onGround)
+            if (Keyboard::isKeyPressed(Keyboard::D))
             {
-                p.dy = -0.35;
-                p.onGround = false;
-                //fs
+                p.dx = 0.1;
+                if (Keyboard::isKeyPressed(Keyboard::LShift))
+                {
+                    p.dx = 0.5;
+
+
+                }
+
+                //s.move(0.5 * time, 0);
+                //currentFrame += 0.015 * time;
+                //if (currentFrame > 2)currentFrame -= 2;
+                //{
+                //    s.setTextureRect(IntRect(182*int(currentFrame), 0, 182, 167)); // сдвиг картинки на 182 - анимация
+                //}
             }
-            // s.move(0, -0.5 * time);
-         //}  if (Keyboard::isKeyPressed(Keyboard::Up))
-         //{
 
-         //    if (p.onGround)
-         //    {
-         //        p.dy = -0.35;
-         //        p.onGround = false;
-         //        //fs
-         //    }
-         //    // s.move(0, -0.5 * time);
-         //}
+
+
+
+
+
+
+            if (Keyboard::isKeyPressed(Keyboard::W))
+            {
+
+                if (p.onGround)
+                {
+                    p.dy = -0.35;
+                    p.onGround = false;
+                    //fs
+                }
+                // s.move(0, -0.5 * time);
+             //}  if (Keyboard::isKeyPressed(Keyboard::Up))
+             //{
+
+             //    if (p.onGround)
+             //    {
+             //        p.dy = -0.35;
+             //        p.onGround = false;
+             //        //fs
+             //    }
+             //    // s.move(0, -0.5 * time);
+             //}
+            }
         }
-
 
 
        /*  if (Keyboard::isKeyPressed(Keyboard::Down))
@@ -448,7 +492,7 @@ int main()
 
                 if (TileMap[i][j] == 'F')  tile.setTextureRect(IntRect(38, 2, 9, 32));
 
-                if (TileMap[i][j] == '2')  tile.setTextureRect(IntRect(0, 0, 32, 32));
+                if (TileMap[i][j] == '2')  tile.setTextureRect(IntRect(58, 0, 32, 32));
 
                 if (TileMap[i][j] == 'g')  tile.setTextureRect(IntRect(15, 68, 251, 148));
 
@@ -475,6 +519,11 @@ int main()
 
                 tile.setPosition(j * 32 - offsetX , i * 32 - offsetY );
                 window.draw(tile);
+
+
+
+
+              
             }
         }
 
@@ -485,7 +534,6 @@ int main()
         fight(p, monsters2);
 
          //window.draw(s); // рисование sprite
-
 
 
 
