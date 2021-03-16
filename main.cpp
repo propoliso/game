@@ -1,3 +1,6 @@
+
+
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include<iostream>
@@ -10,7 +13,7 @@ using namespace sf;
 
 int ground = 295;
 float offsetX = 0, offsetY = 0;
-
+double torch = 1;
 const int H = 18;
 const int W = 150;
 
@@ -54,6 +57,7 @@ public:
     bool life;
     Sprite sprite;
     float currentFrame;
+
     Player(Texture& image);
     ~Player();
     void update(float time);
@@ -61,8 +65,6 @@ public:
     void Collision(int temp);
 
     
-   // friend void count();
-
 
 
 };
@@ -122,7 +124,6 @@ void Player::update(float time) // гравитация
 
 
 void Player::Collision(int temp) {
-
     {
         for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++)
             for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++)
@@ -145,8 +146,9 @@ void Player::Collision(int temp) {
                 if (TileMap[i][j] == 'F')
                 {
                     TileMap[i][j] = ' ';
+                    torch+=0.50;
+
                 }
-        
 
 
             }
@@ -185,6 +187,7 @@ public:
     void set(Texture& image, int x, int y);
     void Collision();
     void update(float time);
+    void  update(float time, Enemy& monsters);
 };
 
 Enemy::Enemy()
@@ -225,6 +228,21 @@ void Enemy::update(float time)
 
 
 }
+void Enemy::update(float time, Enemy&monsters)
+{
+    rect.left += dx * time;
+
+    Collision();
+
+
+    currentFrame += time * 0.005;
+    if (currentFrame > 2) currentFrame -= 2;
+    monsters. sprite.setTextureRect(IntRect(125 * int(currentFrame), 0, 121,70 )); // замена картинки пр движении
+    if (!life) sprite.setTextureRect(IntRect(165, 0, 80, 70));
+    monsters. sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
+
+}
 
 
 
@@ -253,6 +271,7 @@ void Enemy :: Collision()
 
 
 void fight(Player& player, Enemy& monster) {
+ 
     if (player.life)
     {
         if (player.rect.intersects(monster.rect))
@@ -265,31 +284,21 @@ void fight(Player& player, Enemy& monster) {
                 }
                 else
                 {
-                    player.life = false;
+                  
 
+                        torch -= 0.01;
+                        if (torch < 0)
+                        {
+                            player.life = false;
+                            torch = 0;
+                        }
+                    
                 }
             }
         }
     }
 }
 
-
-//void count() {
-//    int count = 0;
-//    for (int i = 0; i < H; i++)
-//    {
-//        for (int j = 0; j < W; j++)
-//        {
-//
-//            if (TileMap[i][j] == 'F')
-//            {
-//               count++;
-//            }
-//        }
-//    }
-//
-//
-//}
 
 
 
@@ -321,32 +330,20 @@ int main()
     Texture tileSet2;
     tileSet2.loadFromFile("monsters.png");
 
+
+    Texture tileSet3;
+    tileSet3.loadFromFile("warior.png");
+
+
     Texture t; 
     t.loadFromFile("casper.png"); // загрузка картинки
    // t.setTextureRect(IntRect(0,0, 183, 167));
     float currentFrame = 0; // скорость анимации
 
-    //Font font;
-    //font.loadFromFile("hp.png");
-    //Text mytext("Hello!", font, 50);
-
-    //mytext.setPosition(55, 50);
-    //std::ostringstream ss;    // #include <sstream>
-    //ss << count;
-    //mytext.setString(ss.str());
-    //window.draw(mytext);
-    //count();
-   
- 
-
 
     Music music;//создаем объект музыки
     music.openFromFile("music.ogg");//загружаем файл
     music.play();//воспроизводим музыку
-
-
-
-
 
 
     //Sprite s; 
@@ -358,18 +355,36 @@ int main()
     monsters.set(tileSet2, 30 * 32, 15 * 32);
     Enemy monsters2;
     monsters2.set(tileSet2, 32 * 32, 12 * 32);
-
+    Enemy monsters3;
+    monsters3.set(tileSet3, 5 * 32, 5 * 32);
 
 
     Player p(t);
     Clock clock;
    // RectangleShape rectangle(Vector2f(32, 32));
 
-   
-
     Sprite tile(tileSet);
 
 
+
+
+
+
+
+
+
+
+
+
+
+            Font font;
+            	font.loadFromFile("sansation.ttf");
+            
+            	Text mytext("Hello!", font, 50);
+            	mytext.setFillColor(sf::Color::Red);
+            	mytext.setPosition(10, 10);
+            
+                
 
 
     while (window.isOpen())
@@ -473,6 +488,9 @@ int main()
          p.update(time);
          monsters.update(time);
          monsters2.update(time);
+         monsters3.update(time, monsters3);
+
+
 
 
          offsetX = p.rect.left - 1000/2; // привязка камеры 
@@ -523,6 +541,9 @@ int main()
 
 
 
+
+                
+
               
             }
         }
@@ -533,14 +554,24 @@ int main()
       
         fight(p, monsters2);
 
+        fight(p, monsters3);
+
+
          //window.draw(s); // рисование sprite
 
-
-
+        Text mytext("Hello!", font, 50);
+        mytext.setFillColor(sf::Color::Black);
+        mytext.setPosition(10, 10);
+        std::ostringstream ss;    // #include <sstream>
+        ss << torch;
+        mytext.setString(ss.str());
+        window.draw(mytext);
 
         window.draw(p.sprite); // рисование sprite
         window.draw(monsters.sprite);      
         window.draw(monsters2.sprite);
+        window.draw(monsters3.sprite);
+
 
 
 
