@@ -1,9 +1,8 @@
-
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include<iostream>
 #include "./Header.h"
+ 
 #include <sstream>
 
 
@@ -22,10 +21,10 @@ String TileMap[H] = {
 "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
 "0                                                                                                                                                   0",
 "0                                                                                                                                                   0",
-"0       s                                                                                                                               z           0",
-"0                                                                                                                            F                      0",
-"0F                                                                            0                      0         0             0                      0",
-"000                                                                                        0                                                        0",
+"0       s                                                                                                                    Y                      0",
+"0 Y                                                                                                                                                 0",
+"0                                                                             0                                0             0                      0",
+"000                                                                                        0        0                                               0",
 "0                  0              g 0                                         222                     22       2     2     2222222                  0",
 "0                                                    0000             0      2   2     2      2      2  2      2     2    2      2                  0",
 "0                                                                     0      2       22222  22222   2    2     2     2    2 222222       d          0",
@@ -33,7 +32,7 @@ String TileMap[H] = {
 "0                                                                   0000     2   2                2        2   2     2    2      2                  0",
 "0                                                                  000000     222                2          2  2     2   2       2                  0",
 "0                                                                 00000000                                                                          0",
-"0                       FF                        z              0000000000               O                                                         0",
+"0                       FF                                       0000000000               O                                                         0",
 "0                                                             00000000000000                                                                        0",
 "0                                                           000000000000000000000                                                                   0",
 "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -125,6 +124,13 @@ void Player::Collision(int temp) {
                     torch+=0.50;
 
                 }
+
+                if (TileMap[i][j] == 'Y')
+                {
+                    TileMap[i][j] = 'J';
+                }
+               
+
             }
 
     }
@@ -267,9 +273,6 @@ void fight(Player& player, Enemy& monster) {
         }
     }
 }
-
-
-
 
 
 
@@ -440,14 +443,17 @@ int main()
 
                 if (TileMap[i][j] == 'O')  tile.setTextureRect(IntRect(61, 228, 70, 114));
 
-                if (TileMap[i][j] == 'z')  tilewin.setTextureRect(IntRect(0, 0, 1000, 800));
+                if (TileMap[i][j] == 'Y')  tile.setTextureRect(IntRect(97, 0, 45, 45));
+
+                if (TileMap[i][j] == 'J')  tile.setTextureRect(IntRect(7, 383, 150, 70));
+
+
 
 
                 if (TileMap[i][j] == ' ') continue;
 
                 tile.setPosition(j * 32 - offsetX , i * 32 - offsetY );
                 window.draw(tile);
-              //  window.draw(tilewin);
 
   
             }
@@ -462,7 +468,7 @@ int main()
         fight(p, monsters3);
 
 
-        
+     
 
 
 
