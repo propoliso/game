@@ -1,6 +1,5 @@
 
 
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include<iostream>
@@ -23,18 +22,18 @@ String TileMap[H] = {
 "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
 "0                                                                                                                                                   0",
 "0                                                                                                                                                   0",
-"0       s                                                                                                                                           0",
-"0                                                                                                                                                   0",
-"0F                                                                                                                                                  0",
-"000                                                                                                                                                 0",
+"0       s                                                                                                                               z           0",
+"0                                                                                                                            F                      0",
+"0F                                                                            0                      0         0             0                      0",
+"000                                                                                        0                                                        0",
 "0                  0              g 0                                         222                     22       2     2     2222222                  0",
-"0                                                    0000                    2   2     2      2      2  2      2     2    2      2                  0",
+"0                                                    0000             0      2   2     2      2      2  2      2     2    2      2                  0",
 "0                                                                     0      2       22222  22222   2    2     2     2    2 222222       d          0",
 "0                                                                    00      2         2      2    22222222    2222222     2     2                  0",
 "0                                                                   0000     2   2                2        2   2     2    2      2                  0",
 "0                                                                  000000     222                2          2  2     2   2       2                  0",
 "0                                                                 00000000                                                                          0",
-"0                       FF                                       0000000000               O                                                         0",
+"0                       FF                        z              0000000000               O                                                         0",
 "0                                                             00000000000000                                                                        0",
 "0                                                           000000000000000000000                                                                   0",
 "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -94,24 +93,9 @@ void Player::update(float time) // гравитация
         onGround = false;
         Collision(1);
 
-       /* if (rect.top > ground) {    
-            rect.top = ground;
-            dy = 0;
-            onGround = true;
-        }*/
-        
 
             currentFrame += 0.005 * time;
             if (currentFrame > 2) currentFrame -= 2;
-
-
-            
-      /*  int    x1 =0;
-        int    x2 = 182;
-        int y1 = 20;
-            int y2 = 167;
-            if(dy>0)
-            sprite.setTextureRect(IntRect(x1, y1, x2, y2));*/
 
 
             if (!life)sprite.setTextureRect(IntRect(174, 0, 85, 70));
@@ -128,9 +112,6 @@ void Player::Collision(int temp) {
         for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++)
             for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++)
             {
-               
-
-
                 if (TileMap[i][j] == '0')
                 {
                     if ((dx > 0) && (temp == 0)) rect.left = j * 32 - rect.width;
@@ -138,19 +119,12 @@ void Player::Collision(int temp) {
                     if ((dy > 0) && (temp == 1)) { rect.top = i * 32 - rect.height;  dy = 0;   onGround = true; }
                     if ((dy < 0) && (temp == 1)) { rect.top = i * 32 + 32;   dy = 0; }
                 }
-            
-
-                  
-
-
                 if (TileMap[i][j] == 'F')
                 {
                     TileMap[i][j] = ' ';
                     torch+=0.50;
 
                 }
-
-
             }
 
     }
@@ -181,7 +155,6 @@ public:
     Sprite sprite;
     float currentFrame;
     bool life;
-
     Enemy();
     ~Enemy();
     void set(Texture& image, int x, int y);
@@ -202,12 +175,9 @@ void Enemy::set( Texture& image, int x, int y)
 {
     sprite.setTexture(image);
     rect = FloatRect(x, y, 32, 32);
-  //  sprite.setTextureRect(IntRect(55, 0, 85, 71)); // начальная отрисовка
-
     dx = 0.05;
     currentFrame = 0;
     life = true;
-
 
 
 
@@ -231,18 +201,17 @@ void Enemy::update(float time)
 void Enemy::update(float time, Enemy&monsters)
 {
     rect.left += dx * time;
-
     Collision();
-
-
     currentFrame += time * 0.005;
     if (currentFrame > 2) currentFrame -= 2;
     monsters. sprite.setTextureRect(IntRect(125 * int(currentFrame), 0, 121,70 )); // замена картинки пр движении
-    if (!life) sprite.setTextureRect(IntRect(165, 0, 80, 70));
+    if (!life) sprite.setTextureRect(IntRect(250, 0, 135, 70));
     monsters. sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
 
 
 }
+
+
 
 
 
@@ -317,7 +286,8 @@ void fight(Player& player, Enemy& monster) {
 
 int main()
 {
-    RenderWindow window(sf::VideoMode(1000, 800), "scribble game"); // создание окна 
+
+    RenderWindow window(sf::VideoMode(1000, 800), "Karakulya"); // создание окна 
     menu(window);
     CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Red);
@@ -332,7 +302,10 @@ int main()
 
 
     Texture tileSet3;
-    tileSet3.loadFromFile("warior.png");
+    tileSet3.loadFromFile("cloud.png");
+
+    Texture tileSet4;
+    tileSet4.loadFromFile("win.png");
 
 
     Texture t; 
@@ -365,15 +338,7 @@ int main()
 
     Sprite tile(tileSet);
 
-
-
-
-
-
-
-
-
-
+    Sprite tilewin(tileSet4);
 
 
 
@@ -407,28 +372,15 @@ int main()
         if (p.life)
         {
 
-
-
             if (Keyboard::isKeyPressed(Keyboard::A))
             {
-
                 p.dx = -0.1;
-
                 if (Keyboard::isKeyPressed(Keyboard::RShift))
                 {
                     p.dx = -0.5;
-
-
                 }
 
-                //s.move(-0.5 * time, 0);
-                //currentFrame += 0.015 * time; 
-                //if (currentFrame > 2)currentFrame -= 2;
-                //{
-                //    s.setTextureRect(IntRect(182 * int(currentFrame)+182, 0, -182, 167)); // отзеркаливание картинки для левого перемещения
-                //}
             }
-
 
             if (Keyboard::isKeyPressed(Keyboard::D))
             {
@@ -436,23 +388,8 @@ int main()
                 if (Keyboard::isKeyPressed(Keyboard::LShift))
                 {
                     p.dx = 0.5;
-
-
                 }
-
-                //s.move(0.5 * time, 0);
-                //currentFrame += 0.015 * time;
-                //if (currentFrame > 2)currentFrame -= 2;
-                //{
-                //    s.setTextureRect(IntRect(182*int(currentFrame), 0, 182, 167)); // сдвиг картинки на 182 - анимация
-                //}
             }
-
-
-
-
-
-
 
             if (Keyboard::isKeyPressed(Keyboard::W))
             {
@@ -461,28 +398,11 @@ int main()
                 {
                     p.dy = -0.35;
                     p.onGround = false;
-                    //fs
                 }
-                // s.move(0, -0.5 * time);
-             //}  if (Keyboard::isKeyPressed(Keyboard::Up))
-             //{
-
-             //    if (p.onGround)
-             //    {
-             //        p.dy = -0.35;
-             //        p.onGround = false;
-             //        //fs
-             //    }
-             //    // s.move(0, -0.5 * time);
-             //}
+          
             }
         }
 
-
-       /*  if (Keyboard::isKeyPressed(Keyboard::Down))
-         {
-             s.move(0, 0.5 * time);
-         }*/
 
 
          p.update(time);
@@ -520,31 +440,16 @@ int main()
 
                 if (TileMap[i][j] == 'O')  tile.setTextureRect(IntRect(61, 228, 70, 114));
 
-
-
-
-
-
+                if (TileMap[i][j] == 'z')  tilewin.setTextureRect(IntRect(0, 0, 1000, 800));
 
 
                 if (TileMap[i][j] == ' ') continue;
 
-              //  if (TileMap[i][j] == '1')  rectangle.setFillColor(Color::Green);
-
-              //  if (TileMap[i][j] == ' ') continue;
-
-                
-
                 tile.setPosition(j * 32 - offsetX , i * 32 - offsetY );
                 window.draw(tile);
+              //  window.draw(tilewin);
 
-
-
-
-
-                
-
-              
+  
             }
         }
 
@@ -557,6 +462,10 @@ int main()
         fight(p, monsters3);
 
 
+        
+
+
+
          //window.draw(s); // рисование sprite
 
         Text mytext("Hello!", font, 50);
@@ -566,6 +475,10 @@ int main()
         ss << torch;
         mytext.setString(ss.str());
         window.draw(mytext);
+
+
+
+     
 
         window.draw(p.sprite); // рисование sprite
         window.draw(monsters.sprite);      
