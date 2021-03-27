@@ -8,15 +8,15 @@ using namespace sf;
 void menu(RenderWindow& window) {
 
     Music music;//создаем объект музыки
-    music.openFromFile("musicchild.ogg");//загружаем файл
+    music.openFromFile("source/musicchild.ogg");//загружаем файл
     music.play();//воспроизводим музыку
 
     Texture menuTexture1, menuTexture2, menuTexture3, aboutTexture, menuBackground;
-    menuTexture1.loadFromFile("menu.png");
-    menuTexture2.loadFromFile("menu.png");
-    menuTexture3.loadFromFile("menu.png");
-    aboutTexture.loadFromFile("about.png");
-    menuBackground.loadFromFile("back.png");
+    menuTexture1.loadFromFile("source/menu.png");
+    menuTexture2.loadFromFile("source/menu.png");
+    menuTexture3.loadFromFile("source/menu.png");
+    aboutTexture.loadFromFile("source/about.png");
+    menuBackground.loadFromFile("source/back.png");
     Sprite menu1(menuTexture1), menu2(menuTexture2), menu3(menuTexture3), about(aboutTexture), menuBg(menuBackground);
     bool isMenu = 1;
     int menuNum = 0;

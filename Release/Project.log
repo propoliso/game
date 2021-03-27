@@ -1,40 +1,56 @@
-﻿main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: static class sf::RenderStates const sf::RenderStates::Default" (__imp_?Default@RenderStates@sf@@2V12@B).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::restart(void)" (__imp_?restart@Clock@sf@@QAE?AVTime@2@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: class sf::Time __thiscall sf::Clock::getElapsedTime(void)const " (__imp_?getElapsedTime@Clock@sf@@QBE?AVTime@2@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::Clock::Clock(void)" (__imp_??0Clock@sf@@QAE@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: static class sf::Color const sf::Color::White" (__imp_?White@Color@sf@@2V12@B).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::CircleShape::CircleShape(float,unsigned int)" (__imp_??0CircleShape@sf@@QAE@MI@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __int64 __thiscall sf::Time::asMicroseconds(void)const " (__imp_?asMicroseconds@Time@sf@@QBE_JXZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: void __thiscall sf::Transformable::setPosition(float,float)" (__imp_?setPosition@Transformable@sf@@QAEXMM@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: bool __thiscall sf::Texture::loadFromFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,class sf::Rect<int> const &)" (__imp_?loadFromFile@Texture@sf@@QAE_NABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABV?$Rect@H@2@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::Texture::~Texture(void)" (__imp_??1Texture@sf@@QAE@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::Texture::Texture(void)" (__imp_??0Texture@sf@@QAE@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: virtual __thiscall sf::RenderWindow::~RenderWindow(void)" (__imp_??1RenderWindow@sf@@UAE@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::RenderWindow::RenderWindow(class sf::VideoMode,class sf::String const &,unsigned int,struct sf::ContextSettings const &)" (__imp_??0RenderWindow@sf@@QAE@VVideoMode@1@ABVString@1@IABUContextSettings@1@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: static class sf::Color const sf::Color::Red" (__imp_?Red@Color@sf@@2V12@B).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: void __thiscall sf::Window::display(void)" (__imp_?display@Window@sf@@QAEXXZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: bool __thiscall sf::Window::pollEvent(class sf::Event &)" (__imp_?pollEvent@Window@sf@@QAE_NAAVEvent@2@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: bool __thiscall sf::Window::isOpen(void)const " (__imp_?isOpen@Window@sf@@QBE_NXZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: void __thiscall sf::Window::close(void)" (__imp_?close@Window@sf@@QAEXXZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: void __thiscall sf::RenderTarget::draw(class sf::Drawable const &,class sf::RenderStates const &)" (__imp_?draw@RenderTarget@sf@@QAEXABVDrawable@2@ABVRenderStates@2@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: void __thiscall sf::RenderTarget::clear(class sf::Color const &)" (__imp_?clear@RenderTarget@sf@@QAEXABVColor@2@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: static bool __cdecl sf::Keyboard::isKeyPressed(enum sf::Keyboard::Key)" (__imp_?isKeyPressed@Keyboard@sf@@SA_NW4Key@12@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: void __thiscall sf::Shape::setFillColor(class sf::Color const &)" (__imp_?setFillColor@Shape@sf@@QAEXABVColor@2@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: unsigned int & __thiscall sf::String::operator[](unsigned int)" (__imp_??AString@sf@@QAEAAII@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::String::String(char const *,class std::locale const &)" (__imp_??0String@sf@@QAE@PBDABVlocale@std@@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::VideoMode::VideoMode(unsigned int,unsigned int,unsigned int)" (__imp_??0VideoMode@sf@@QAE@III@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: void __thiscall sf::Sprite::setColor(class sf::Color const &)" (__imp_?setColor@Sprite@sf@@QAEXABVColor@2@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: void __thiscall sf::Sprite::setTextureRect(class sf::Rect<int> const &)" (__imp_?setTextureRect@Sprite@sf@@QAEXABV?$Rect@H@2@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: void __thiscall sf::Sprite::setTexture(class sf::Texture const &,bool)" (__imp_?setTexture@Sprite@sf@@QAEXABVTexture@2@_N@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::Sprite::Sprite(void)" (__imp_??0Sprite@sf@@QAE@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::Sprite::Sprite(class sf::Texture const &)" (__imp_??0Sprite@sf@@QAE@ABVTexture@1@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: bool __thiscall sf::Music::openFromFile(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (__imp_?openFromFile@Music@sf@@QAE_NABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: virtual __thiscall sf::Music::~Music(void)" (__imp_??1Music@sf@@UAE@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::Music::Music(void)" (__imp_??0Music@sf@@QAE@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: virtual void __thiscall sf::SoundStream::play(void)" (__imp_?play@SoundStream@sf@@UAEXXZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: static class sf::Vector2<int> __cdecl sf::Mouse::getPosition(class sf::Window const &)" (__imp_?getPosition@Mouse@sf@@SA?AV?$Vector2@H@2@ABVWindow@2@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: static bool __cdecl sf::Mouse::isButtonPressed(enum sf::Mouse::Button)" (__imp_?isButtonPressed@Mouse@sf@@SA_NW4Button@12@@Z).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: virtual __thiscall sf::CircleShape::~CircleShape(void)" (__imp_??1CircleShape@sf@@UAE@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: __thiscall sf::String::~String(void)" (__imp_??1String@sf@@QAE@XZ).
-main.obj : error LNK2001: неразрешенный внешний символ "__declspec(dllimport) public: virtual __thiscall sf::Sprite::~Sprite(void)" (__imp_??1Sprite@sf@@UAE@XZ).
-C:\Users\1\Desktop\game\Project\Release\Project.exe : fatal error LNK1120: неразрешенных внешних элементов: 39
+﻿  main.cpp
+c:\users\1\desktop\game\project\main.cpp(75): warning C4305: =: усечение из "double" в "float"
+c:\users\1\desktop\game\project\main.cpp(88): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\users\1\desktop\game\project\main.cpp(96): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+c:\users\1\desktop\game\project\main.cpp(111): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+c:\users\1\desktop\game\project\main.cpp(112): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+c:\users\1\desktop\game\project\main.cpp(117): warning C4244: =: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+c:\users\1\desktop\game\project\main.cpp(119): warning C4244: =: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+c:\users\1\desktop\game\project\main.cpp(183): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+c:\users\1\desktop\game\project\main.cpp(184): warning C4305: =: усечение из "double" в "float"
+c:\users\1\desktop\game\project\main.cpp(199): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+c:\users\1\desktop\game\project\main.cpp(211): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
+c:\users\1\desktop\game\project\main.cpp(227): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+c:\users\1\desktop\game\project\main.cpp(228): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+c:\users\1\desktop\game\project\main.cpp(237): warning C4244: =: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+c:\users\1\desktop\game\project\main.cpp(257): warning C4305: =: усечение из "double" в "float"
+c:\users\1\desktop\game\project\main.cpp(361): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+c:\users\1\desktop\game\project\main.cpp(380): warning C4305: =: усечение из "double" в "float"
+c:\users\1\desktop\game\project\main.cpp(390): warning C4305: =: усечение из "double" в "float"
+c:\users\1\desktop\game\project\main.cpp(402): warning C4305: =: усечение из "double" в "float"
+  Создание кода
+  All 126 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  Project.vcxproj -> C:\Users\1\Desktop\game\Project\Release\Project.exe

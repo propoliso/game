@@ -2,7 +2,6 @@
 #include <SFML/Audio.hpp>
 #include<iostream>
 #include "./Header.h"
- 
 #include <sstream>
 
 
@@ -63,7 +62,7 @@ public:
     void Collision(int temp);
 
     
-
+  
 
 };
 
@@ -107,33 +106,34 @@ void Player::update(float time) // гравитация
 
 
 void Player::Collision(int temp) {
-    {
-        for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++)
-            for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++)
-            {
-                if (TileMap[i][j] == '0')
-                {
-                    if ((dx > 0) && (temp == 0)) rect.left = j * 32 - rect.width;
-                    if ((dx < 0) && (temp == 0)) rect.left = j * 32 + 32;
-                    if ((dy > 0) && (temp == 1)) { rect.top = i * 32 - rect.height;  dy = 0;   onGround = true; }
-                    if ((dy < 0) && (temp == 1)) { rect.top = i * 32 + 32;   dy = 0; }
-                }
-                if (TileMap[i][j] == 'F')
-                {
-                    TileMap[i][j] = ' ';
-                    torch+=0.50;
 
-                }
+       for (int i = rect.top / 32; i < (rect.top + rect.height) / 32; i++)
+           for (int j = rect.left / 32; j < (rect.left + rect.width) / 32; j++)
+           {
+               if (TileMap[i][j] == '0')
+               {
+                   if ((dx > 0) && (temp == 0)) rect.left = j * 32 - rect.width;
+                   if ((dx < 0) && (temp == 0)) rect.left = j * 32 + 32;
+                   if ((dy > 0) && (temp == 1)) { rect.top = i * 32 - rect.height;  dy = 0;   onGround = true; }
+                   if ((dy < 0) && (temp == 1)) { rect.top = i * 32 + 32;   dy = 0; }
+               }
+               if (TileMap[i][j] == 'F')
+               {
+                   TileMap[i][j] = ' ';
+                   torch+=0.50;
 
-                if (TileMap[i][j] == 'Y')
-                {
-                    TileMap[i][j] = 'J';
-                }
-               
+               }
 
-            }
+               if (TileMap[i][j] == 'Y')
+               {
+                   TileMap[i][j] = 'J';
+               }
 
-    }
+
+           }
+
+
+    
 }
 
 
@@ -245,6 +245,20 @@ void Enemy :: Collision()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void fight(Player& player, Enemy& monster) {
  
     if (player.life)
@@ -297,28 +311,28 @@ int main()
     
 
     Texture tileSet;
-    tileSet.loadFromFile("v1.png");
+    tileSet.loadFromFile("source/v1.png");
 
 
     Texture tileSet2;
-    tileSet2.loadFromFile("monsters.png");
+    tileSet2.loadFromFile("source/monsters.png");
 
 
     Texture tileSet3;
-    tileSet3.loadFromFile("cloud.png");
+    tileSet3.loadFromFile("source/cloud.png");
 
     Texture tileSet4;
-    tileSet4.loadFromFile("win.png");
+    tileSet4.loadFromFile("source/win.png");
 
 
     Texture t; 
-    t.loadFromFile("casper.png"); // загрузка картинки
+    t.loadFromFile("source/casper.png"); // загрузка картинки
    // t.setTextureRect(IntRect(0,0, 183, 167));
     float currentFrame = 0; // скорость анимации
 
 
     Music music;//создаем объект музыки
-    music.openFromFile("music.ogg");//загружаем файл
+    music.openFromFile("source/music.ogg");//загружаем файл
     music.play();//воспроизводим музыку
 
 
@@ -346,13 +360,20 @@ int main()
 
 
             Font font;
-            	font.loadFromFile("sansation.ttf");
+            	font.loadFromFile("source/sansation.ttf");
             
             	Text mytext("Hello!", font, 50);
             	mytext.setFillColor(sf::Color::Red);
             	mytext.setPosition(10, 10);
             
-                
+          
+
+
+
+
+
+
+
 
 
     while (window.isOpen())
